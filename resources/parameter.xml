@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<MAIN>
+  <particles>
+    <np>100</np>
+  </particles>
+  <time>
+    <dt>0.000005</dt>
+	<loadingTime>2.5</loadingTime>
+    <endTime>5</endTime>
+	<outputFrequency>2000</outputFrequency>
+   </time>
+</MAIN>
