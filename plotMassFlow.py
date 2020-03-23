@@ -8,20 +8,42 @@ Created on Sat Feb 10 10:26:16 2018
 import numpy as np
 import matplotlib.pyplot as plt
 
+diameter = 0.04
+volume = diameter**3 * np.pi / 6
+rho = 1000
+mass = rho * volume
 
-t,N=np.loadtxt("output/particleCount.dat",skiprows=1, unpack=True)
-plt.plot(t,N* mass)
- 
-i0=270
-i1=490
-a=np.polyfit(t[270:490],N[270:490],1)
-mass=0.04**3. *1000 *np.pi / 8
-print("Number flow is : ", a[0]*mass)
-print("Total mass is : ", np.max(N)*mass)
+
+#%% 500 particles 0.4m hole
+t,particlesLeft=np.loadtxt("C:/Users/Ad/Desktop/particles/500p/particleCount.dat",skiprows=1, unpack=True)
+
+i0=270 #start fit here
+i1=350 #end fit here      
+
+polynom1=np.polyfit(t[i0:i1],particlesLeft[i0:i1],1)
+linearfit=polynom1[0]*t[i0:i1]+polynom1[1]
+
+print("Mass flow for 500 particles : %3.3f (kg/s)"  %(-polynom1[0] * mass))
+print("Total mass is : ", np.max(particlesLeft) * mass)
+
+plt.plot(t,particlesLeft * mass, label='Experimental data') 
+plt.plot(t[i0:i1],linearfit * mass, label='Linear Regression') 
+
+#%% 100 particles 0.4m hole
+t,particlesLeft=np.loadtxt("C:/Users/Ad/Desktop/particles/100p/particleCount.dat",skiprows=1, unpack=True)
+       
+i0=250 #start fit here
+i1=400 #end fit here
+polynom1=np.polyfit(t[i0:i1],particlesLeft[i0:i1],1)
+linearfit=polynom1[0]*t[i0:i1]+polynom1[1]
+
+print("Mass flow for 100 particles : %3.3f (kg/s)" % (-polynom1[0] * mass))
+print("Total mass is : ", np.max(particlesLeft) * mass)
+
+plt.plot(t,particlesLeft * mass, label='Experimental data-100') 
+plt.plot(t[i0:i1],linearfit * mass, label='Linear Regression-100')
+
 
 plt.legend()
-plt.show()
+plt.show
 
-
-plt.legend()
-plt.show()
